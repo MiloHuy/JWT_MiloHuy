@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCreatePostMutation, useGetPostQuery } from "../services/post";
 
 function App() {
     const getPostResponse = useGetPostQuery();
     const [createPost, createPostResult] = useCreatePostMutation();
-    // console.log("createPostResult", createPostResult);
+    const [username, setUserName] = useState('')
+    const [pwd, setPwd] = useState('')
     useEffect(() => {
         if (createPostResult.isLoading === false && createPostResult.isSuccess) {
             console.log("Create post data", createPostResult.data);
@@ -19,16 +20,41 @@ function App() {
         return <div>Error occured {getPostResponse.error.error}</div>;
     }
 
-    function createPostHandler() {
-        createPost({ title: "Generic Title", postBody: "Post body", userId: 1 });
+    const handleUserInput = (e) => {
+        setUserName(e.target.value)
+    }
+
+    const handlePwdInput = (e) => {
+        setPwd(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createPost({ username, pwd });
     }
 
     return (
         <div className="App">
-            <div>{getPostResponse.data.title}</div>
-            <div>
-                <button onClick={() => createPostHandler()}>Create Post</button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={handleUserInput}
+                    autoComplete="off"
+                />
+
+                <label htmlFor="password">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    value={pwd}
+                    onChange={handlePwdInput}
+                />
+
+                <button type='submit'>Sign In</button>
+            </form>
 
         </div>
     );

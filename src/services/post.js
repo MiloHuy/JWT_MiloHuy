@@ -8,10 +8,10 @@ export const postsApi = createApi({
         query: () => `posts/1`,
       }),
       createPost: builder.mutation({
-        query: ({title,postBody,userId}) => ({
+        query: ({username,pwd}) => ({
           url: `posts`,
           method: 'POST',
-          body: {title,'body':postBody,userId},
+          body: {username,pwd},
         }),
     }),
     })

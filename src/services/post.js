@@ -2,14 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const postsApi = createApi({
     reducerPath: 'postApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3004' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://final-project-it-project.vercel.app/api/auth' }),
     endpoints: (builder) => ({
-      getPost: builder.query({
-        query: () => `user`,
-      }),
+    //   getPost: builder.query({
+    //     query: () => `api/auth/login`,
+    //   }),
       createPost: builder.mutation({
         query: ({username,pwd}) => ({
-          url: `user`,
+          url: `/login`,
           method: 'POST',
           body: {username,pwd},
         }),
@@ -17,4 +17,4 @@ export const postsApi = createApi({
     })
 })
 
-export const {useGetPostQuery,useCreatePostMutation} = postsApi;
+export const {useCreatePostMutation} = postsApi;

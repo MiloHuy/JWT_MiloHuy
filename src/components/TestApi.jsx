@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useCreatePostMutation, useGetPostQuery } from "../services/post";
+import { useCreatePostMutation } from "../services/post";
 
 function App() {
-    const getPostResponse = useGetPostQuery();
     const [createPost, createPostResult] = useCreatePostMutation();
     const [username, setUserName] = useState('')
     const [pwd, setPwd] = useState('')
@@ -11,14 +10,6 @@ function App() {
             console.log("Create post data", createPostResult.data);
         }
     }, [createPostResult]);
-
-    if (getPostResponse.isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (getPostResponse.isError) {
-        return <div>Error occured {getPostResponse.error.error}</div>;
-    }
 
     const handleUserInput = (e) => {
         setUserName(e.target.value)

@@ -7,17 +7,17 @@ const authSlice = createSlice({
         // token: null,
         // err: ''
         username: null,
-        pwd: null
+        pwd: null,
+        token: null,
     },
     reducers: {
         setCredentials: (state, action) => {
             console.log("Action payload: " + Object.keys(action.payload))
-            const { username, error,pwd } = action.payload
+            const { username, data,pwd } = action.payload
             console.log("User: " + username)
-            console.log("key of pwd: ",error)
             state.username = username
             state.pwd = pwd
-            // state.token = accessToken
+            state.token = data.data.token
         },
         logOut: (state, action) => {
             state.user = null
@@ -30,5 +30,5 @@ export const { setCredentials, logOut } = authSlice.actions
 
 export default authSlice.reducer
 
-export const selectCurrentUser = (state) => state.auth.user
+export const selectCurrentUser = (state) => state.auth.username
 export const selectCurrentToken = (state) => state.auth.token

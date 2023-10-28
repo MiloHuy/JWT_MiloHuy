@@ -1,5 +1,4 @@
 import './App.css';
-import TestApi from './components/TestApi';
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
@@ -11,15 +10,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* public routes */}
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
-
-        {/* protected routes */}
         <Route element={<RequireAuth />}>
           <Route path="welcome" element={<Welcome />} />
         </Route>
-
       </Route>
     </Routes>
   )

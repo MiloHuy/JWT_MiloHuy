@@ -5,14 +5,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
         login: builder.mutation({
             query: (data) => (
                 {
-                    url: '/user',
+                    url: '/api/auth/login',
                     method: 'post',
                     credentials: 'include' ,
                     body: data,
                     headers: {
                       "Content-type": "application/json; charset=UTF-8",
                     },
-                    mode: 'no-cors',
+                    // mode: 'no-cors',
             }),
         }),
         getUsers: builder.query({

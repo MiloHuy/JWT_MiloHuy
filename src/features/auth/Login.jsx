@@ -9,7 +9,7 @@ const Login = () => {
 
     const errRef = useRef()
     const [username, setUser] = useState('')
-    const [pwd, setPwd] = useState('')
+    const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
 
@@ -19,19 +19,19 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg('')
-    }, [username, pwd])
+    }, [username, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
             console.log("username:", username)
-            console.log("pwd:", pwd)
-            const userData = await login({ username, pwd })
+            console.log("pwd:", password)
+            const userData = await login({ username, password })
             console.log('User data: ', userData)
-            dispatch(setCredentials({ ...userData, username, pwd }))
+            dispatch(setCredentials({ ...userData, username, password }))
             setUser('')
-            setPwd('')
+            setPassword('')
             navigate('/welcome')
 
         } catch (err) {
@@ -51,7 +51,7 @@ const Login = () => {
 
     const handleUserInput = (e) => setUser(e.target.value)
 
-    const handlePwdInput = (e) => setPwd(e.target.value)
+    const handlePwdInput = (e) => setPassword(e.target.value)
 
     const content = isLoading ? <h1>Loading...</h1> : (
         <section className="login">
@@ -73,7 +73,7 @@ const Login = () => {
                 <input
                     type="password"
                     id="password"
-                    value={pwd}
+                    value={password}
                     onChange={handlePwdInput}
                 />
 

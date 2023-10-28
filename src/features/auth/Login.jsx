@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
+import { useCookies } from "react-cookie";
 
 const Login = () => {
 
@@ -13,7 +14,9 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
 
-    const [login, { isLoading, data, error }] = useLoginMutation()
+    const [cookie, setCookies] = useCookies(['user'])
+
+    const [login, { isLoading }] = useLoginMutation()
 
     const dispatch = useDispatch()
 
@@ -30,6 +33,7 @@ const Login = () => {
             const userData = await login({ username, password })
             console.log('User data: ', userData)
             dispatch(setCredentials({ ...userData, username, password }))
+            setCookies("user", username, { path: "/" });
             setUser('')
             setPassword('')
             navigate('/welcome')

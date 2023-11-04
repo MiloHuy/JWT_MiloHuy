@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectCurrentToken, selectCurrentUser } from './authSlice'
+import { selectCurrentUser } from './authSlice'
 
 const Welcome = () => {
     const user = useSelector(selectCurrentUser)

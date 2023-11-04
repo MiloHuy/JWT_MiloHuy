@@ -1,10 +1,9 @@
-import { useRef, useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
-import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
-import { useCookies } from "react-cookie";
+import { setCredentials } from './authSlice'
 
 const Login = () => {
 
@@ -13,8 +12,6 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
-
-    const [cookie, setCookies] = useCookies(['user'])
 
     const [login, { isLoading }] = useLoginMutation()
 
@@ -33,7 +30,6 @@ const Login = () => {
             const userData = await login({ username, password })
             console.log('User data: ', userData)
             dispatch(setCredentials({ ...userData, username, password }))
-            setCookies("user", username, { path: "/" });
             setUser('')
             setPassword('')
             navigate('/welcome')

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from "react-router-dom";
@@ -7,16 +7,16 @@ import { selectCurrentToken } from './authSlice';
 const RequireAuth = () => {
     const token = useSelector(selectCurrentToken)
     const location = useLocation()
-    const [cookie, setCookies] = useCookies(['user'])
+    const [cookie, setCookies] = useCookies(['access-token'])
 
-    const handleSaveAccessToken = () => {
+    const handleSaveAccessToken = useCallback(() => {
         if (!token) return
-        setCookies("access token", token, { path: "/" });
-    }
+        setCookies("access-token", token, { path: "/" });
+    }, [token, setCookies])
 
     useEffect(() => {
         handleSaveAccessToken()
-    }, [token])
+    }, [token, handleSaveAccessToken])
 
     return (
         token

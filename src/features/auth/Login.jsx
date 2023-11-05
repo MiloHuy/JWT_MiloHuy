@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLoginMutation } from './authApiSlice'
-import { setCredentials } from './authSlice'
+import { selectCurrentToken, setCredentials } from './authSlice'
 
 const Login = () => {
 
@@ -14,6 +14,9 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [login, { isLoading }] = useLoginMutation()
+
+    const token = useSelector(selectCurrentToken)
+    console.log("token: ", token)
 
     const dispatch = useDispatch()
 

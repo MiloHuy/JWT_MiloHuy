@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { selectCurrentToken } from '../features/auth/authSlice'
 
 const Public = () => {
+    const token = useSelector(selectCurrentToken)
+
     return (
         <div>
             <header>
@@ -15,7 +19,7 @@ const Public = () => {
                 </p>
             </main>
             <footer>
-                <Link to='./login'>Login</Link>
+                {token ? <Link to='./welcome'>welcome</Link> : <Link to='./login'>Login</Link>}
             </footer>
         </div>
     )
